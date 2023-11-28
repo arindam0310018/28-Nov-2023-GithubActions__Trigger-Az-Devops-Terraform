@@ -28,6 +28,6 @@ jobs:
     - name: 'Trigger an Azure Pipeline to Register Azure Providers in a Subscription using Terraform'
       uses: Azure/pipelines@releases/v1
       with:
-        azure-devops-project-url: 'https://dev.azure.com/ArindamMitra0251/AMCLOUD'
-        azure-pipeline-name: '\Az-Resource-Provider-Registration\v1.0' 
+        azure-devops-project-url: 'https://dev.azure.com/ArindamMitra0251/AMCLOUD/_build?definitionScope=%5CAz-Resource-Provider-Registration'
+        azure-pipeline-name: 'v1.0' 
         azure-devops-token: '${{ secrets.AZURE_DEVOPS_TOKEN }}'
