@@ -1,0 +1,33 @@
+# Github Actions Workflow to Trigger Azure Devops Pipelines to Execute Terraform Code.
+
+name: Trigger Azure Pipelines
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a job called "build-in-actions-workflow"
+  build-in-actions-workflow:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v3
+
+  # This workflow contains a job called "deploy-using-azure-pipelines"
+  deploy-using-azure-pipelines:
+    # This job is dependent on the previous job "build-in-actions-workflow" 
+    needs: build-in-actions-workflow
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Trigger an Azure Pipeline to Register Azure Providers in a Subscription using Terraform'
+      uses: Azure/pipelines@releases/v1
+      with:
+        azure-devops-project-url: 'https://dev.azure.com/ArindamMitra0251/AMCLOUD'
+        azure-pipeline-name: '\Az-Resource-Provider-Registration\v1.0' 
+        azure-devops-token: '${{ secrets.AZURE_DEVOPS_TOKEN }}'
